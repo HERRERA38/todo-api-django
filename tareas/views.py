@@ -5,6 +5,8 @@ from .serializers import TareaSerializer
 
 
 class TareaViewSet(viewsets.ModelViewSet):
-    queryset = Tarea.objects.all()
     serializer_class = TareaSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Tarea.objects.filter(usuario=self.request.user)
